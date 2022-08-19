@@ -12,7 +12,7 @@ module.exports = {
         // bucket就是对象存储的存储空间
         bucket_name: 'icourse-img',
         // 需要拼接图片，以/结尾
-        domain: 'http://rgs3zby84.bkt.gdipper.com/',
+        domain: 'icourseimg.lyle-lyle.click/',
       }
     }
   }

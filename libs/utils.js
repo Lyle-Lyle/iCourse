@@ -4,6 +4,9 @@ const cp = require('child_process'),
   Qiniu = require('qiniu'),
   { qiniu } = require('../config/config');
 
+
+// utils 创建用来开启子线程，上传图片到Qiniu的函数
+
 module.exports = {
 
   // 开启子进程
@@ -33,12 +36,14 @@ module.exports = {
     })
   },
 
+  // 定义上传图片到七牛的函数
   qiniuUpload(options) {
     const mac = new Qiniu.auth.digest.Mac(options.ak, options.sk),
       conf = new Qiniu.conf.Config(),
       client = new Qiniu.rs.BucketManager(mac, conf),
       key = nanoId() + options.ext;
 
+    // 用promise包裹异步操作
     return new Promise((resolve, reject) => {
       // 把什么URL 传到哪个存储空间 使用什么名字
       client.fetch(options.url, options.bucket, key, (error, ret, info) => {

@@ -2,7 +2,7 @@ const crawler = require('../libs/crawler');
 
 // analyse pages and get data
 
-// 调用爬虫函数，传入我们的配置
+// 调用爬虫函数，传入我们的配置是一个对象,返回爬取到的数据
 crawler({
   url: 'https://msiwei.ke.qq.com/?tuin=304a784b#tab=0&category=-1',
   callback() {
