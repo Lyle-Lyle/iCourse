@@ -19,10 +19,12 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
+    "mysql2": "^2.3.3",
     "nanoid": "^2.1.11",
     "pug": "^2.0.3",
     "puppeteer": "^15.5.0",
-    "qiniu": "^7.7.0"
+    "qiniu": "^7.7.0",
+    "sequelize": "^6.21.4"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

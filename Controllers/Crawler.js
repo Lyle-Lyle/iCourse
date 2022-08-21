@@ -1,5 +1,6 @@
 const { startProcess, qiniuUpload } = require('../libs/utils'),
-  config = require('../config/config');
+  { addSliderData } = require('../services/Slider');
+config = require('../config/config');
 
 
 // 创建一个爬虫的controller是一个类并导出这个类的实例,当路由匹配到这个controller，就会执行
@@ -27,6 +28,14 @@ class Crawler {
               // 为数据的imgKey赋值
               if (imgData.key) {
                 item.imgKey = imgData.key;
+              }
+
+              // 把数据添加进数据库中
+              const result = await addSliderData(item);
+              if (result) {
+                console.log('Data created');
+              } else {
+                console.log('Failed to create data');
               }
 
               console.log(imgData);
