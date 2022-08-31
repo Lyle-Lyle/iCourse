@@ -1,10 +1,10 @@
-const crawler = require('../libs/crawler'),
+const Crawler = require('../libs/crawler'),
   { crawler } = require('../config/config')
 
 // analyse pages and get data
 
 // 调用爬虫函数，传入我们的配置是一个对象,返回爬取到的数据
-crawler({
+Crawler({
   url: crawler.url.main,
   callback() {
     const $ = window.$,

@@ -1,4 +1,4 @@
-const seq = require('../connection/mysql_connect'),
+const seq = require('../connections/mysql_connect'),
   { STRING, INT, BIGINT } = require('../../config/db_type_config');
 
 // 建表

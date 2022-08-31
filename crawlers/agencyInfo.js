@@ -1,31 +1,25 @@
-const crawler = require('../libs/crawler'),
-  { crawler } = require('../config/config')
+const Crawler = require('../libs/crawler'),
+  { crawler } = require('../config/config');
 
 
+// 爬取机构信息的爬虫
 
-crawler({
+Crawler({
   url: crawler.url.main,
   callback() {
     const $ = window.$,
-      $item = $('.agency-big-banner-ul .agency-big-banner-li');
+      $section = $('.agency-head');
 
-    const data = [];
-
-    $item.each((index, item) => {
-      const $el = $(item),
-        // 根据类名拿到a标签
-        $elLink = $el.find('.js-banner-btnqq');
-
-      // 根据拿到的数据创建对象
-      const dataItem = {
-        cid: $elLink.attr('data-id'),
-        href: $elLink.prop('href'),
-        imgUrl: $elLink.find('img').prop('src'),
-        title: $elLink.prop('title'),
-        imgKey: ''
-      }
-      data.push(dataItem);
-    });
-    return data;
+    return {
+      logoUrl: $section.find('.agency-head-logo').prop('src'),
+      name: $section.find('.ag-title-main').text(),
+      // 获得好评度，以0-9开头忽略大小写
+      feedbackRate: $section.find('.ag-info span').eq(0).text().replace(/[^0-9]/ig, ''),
+      studentCount: $section.find('.js-item-num').attr('data-num'),
+      description: $section.find('.ag-info-des').text(),
+      // 一个跳转的链接
+      qqLink: $section.find('.ag-info-btn').prop('href'),
+      logoKey: ''
+    };
   }
-})  
+});

@@ -38,7 +38,7 @@ module.exports = {
 
   // 定义上传图片到七牛的函数
   qiniuUpload(options) {
-    const mac = new Qiniu.auth.digest.Mac(options.ak, options.sk),
+    const mac = new Qiniu.auth.digest.Mac(qiniu.keys.ak, qiniu.keys.sk),
       conf = new Qiniu.conf.Config(),
       client = new Qiniu.rs.BucketManager(mac, conf),
       key = nanoId() + options.ext;

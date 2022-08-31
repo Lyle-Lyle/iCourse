@@ -1,4 +1,4 @@
-const seq = require('./connection/mysql_connect');
+const seq = require('./connections/mysql_connect');
 
 // node sync.js 来建表
 
