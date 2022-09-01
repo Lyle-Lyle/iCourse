@@ -5,9 +5,14 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const session = require('koa-generic-session')
+const koaRedis = require('koa-redis')
+
+const { sessionInfo, cookieInfo, redisInfo } = require('./config/config')
 
 
-const crawler = require('./routes/crawler');
+const crawlerRouter = require('./routes/crawler');
+const indexRouter = require('./routes/index');
 
 
 // error handler
@@ -22,7 +27,18 @@ app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
-  extension: 'pug'
+  extension: 'ejs'
+}))
+
+// 加密cookie的key
+app.keys = sessionInfo.keys;
+
+
+app.use(session({
+  key: sessionInfo.name,  // cookie name
+  prefix: sessionInfo.prefix,  // redis key 前缀
+  cookie: cookieInfo,
+  store: koaRedis(redisInfo)
 }))
 
 // logger
@@ -34,7 +50,8 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(crawler.routes(), crawler.allowedMethods())
+app.use(crawlerRouter.routes(), crawlerRouter.allowedMethods())
+app.use(indexRouter.routes(), indexRouter.allowedMethods())
 
 
 // error-handling

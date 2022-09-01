@@ -1,3 +1,5 @@
+const ENV = require('./env_config');
+
 // const Sequelize = require('sequelize');
 // const seq = new Sequelize('icourse', 'root', '', {
 //   host: 'localhost',
@@ -11,7 +13,7 @@
 
 
 module.exports = {
-  mysql: {
+  MYSQL_CONF: {
     base: {
       host: 'localhost',
       dialect: 'mysql',
@@ -21,6 +23,8 @@ module.exports = {
         idle: 10000
       }
     },
-    conf: ['icourse', 'root', '12345678']
-  }
+    // 为生产环境和开发环境配置不同的密码
+    conf: ['icourse', 'root', ENV.isPrd ? 'xxx' : '12345678']
+  },
+  REDIS_CONF: ['6379', '127.0.0.1']
 };

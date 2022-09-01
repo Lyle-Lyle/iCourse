@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize'),
-  { mysql } = require('../../config/db_config');
+  { MYSQL_CONF } = require('../../config/db_config');
 
 
-const seq = new Sequelize(...mysql.conf, mysql.base);
+const seq = new Sequelize(...MYSQL_CONF.conf, MYSQL_CONF.base);
 
 
 module.exports = seq;
